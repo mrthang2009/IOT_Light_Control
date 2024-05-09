@@ -20,9 +20,9 @@ import TableHeader from 'src/components/Table/TableHeader';
 import TableToolbar from 'src/components/Table/TableToolbar';
 import CustomTablePagination from 'src/components/CustomTablePagination';
 
-import SupplierTableRow from './components/SupplierTableRow';
+import CustomerTableRow from './Components/CustomerTableRow';
 
-function Suppliers() {
+function Customers() {
   const location = useLocation();
   const [data, setData] = useState({});
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -32,7 +32,7 @@ function Suppliers() {
   const getData = useCallback(async (newQueryData) => {
     try {
       const queryString = getParamsFormObject(newQueryData);
-      const urlAPI = `/suppliers/list${queryString}`;
+      const urlAPI = `/customers/list${queryString}`;
       const res = await axiosClient.get(urlAPI);
       setData(res.data);
       setSelected([]);
@@ -79,18 +79,18 @@ function Suppliers() {
     setSelected(newSelected);
   };
 
-  const handleDeleteSuppliers = async () => {
+  const handleDeleteCustomers = async () => {
     try {
       setIsButtonDisabled(true);
-      const urlApi = `/suppliers/delete/`;
+      const urlApi = `/customers/delete/`;
       const res = await axiosClient.patch(urlApi, { ids: selected });
       if (res.data.payload && res.data.payload.length > 0) {
-        showSuccess('Xóa nhà cung cấp đã chọn thành công');
+        showSuccess('Xóa khách hàng đã chọn thành công');
         setSelected([]);
         await getData();
       }
     } catch (error) {
-      handleErrorResponse(error, 'Xóa nhà cung cấp đã chọn thất bại');
+      handleErrorResponse(error, 'Xóa khách hàng đã chọn thất bại');
     }
   };
 
@@ -100,20 +100,20 @@ function Suppliers() {
   return (
     <Container>
       <PageHeader
-        nameButtonCreate="Thêm nhà cung cấp mới"
-        title="Nhà cung cấp"
-        locationPageCreate={LOCATIONS.SUPPLIER_CREATE}
+        nameButtonCreate="Thêm khách hàng mới"
+        title="Khách hàng"
+        locationPageCreate={LOCATIONS.CUSTOMER_CREATE}
       />
       {data.payload ? (
         <Card>
           <TableToolbar
-            namePage="nhà cung cấp"
+            namePage="khách hàng"
             valueQuery={valueQuery}
-            locationPage={LOCATIONS.SUPPLIER_LIST}
-            placeholder={{ keyword: 'Tìm kiếm nhà cung cấp' }}
+            locationPage={LOCATIONS.CUSTOMER_LIST}
+            placeholder={{ keyword: 'Tìm kiếm khách hàng' }}
             numSelected={selected.length}
             isButtonDisabled={isButtonDisabled}
-            handleSelectedDeletion={handleDeleteSuppliers}
+            handleSelectedDeletion={handleDeleteCustomers}
           />
           <Scrollbar>
             <TableContainer>
@@ -124,9 +124,10 @@ function Suppliers() {
                   numSelected={selected.length}
                   onSelectAllClick={handleSelectAllClick}
                   headLabel={[
-                    { id: 'name', label: 'Tên nhà cung cấp' },
+                    { id: 'fullName', label: 'Họ tên' },
                     { id: 'email', label: 'Email' },
                     { id: 'phoneNumber', label: 'Số điện thoại' },
+                    { id: 'birthday', label: 'Ngày sinh' },
                     { id: 'address', label: 'Địa chỉ' },
                     { id: '' },
                   ]}
@@ -134,13 +135,14 @@ function Suppliers() {
                 <TableBody>
                   {data.payload.length > 0 ? (
                     data.payload.map((row, index) => (
-                      <SupplierTableRow
+                      <CustomerTableRow
                         key={row._id}
                         id={row._id}
-                        coverImageUrl={row.coverImageId}
-                        name={row.name}
+                        avatarUrl={row.avatarId}
+                        name={row.fullName}
                         email={row.email}
                         phoneNumber={row.phoneNumber}
+                        birthday={row.birthday}
                         address={row.address}
                         selected={selected.indexOf(row._id) !== -1}
                         handleClick={() => handleClick(row._id)}
@@ -156,9 +158,9 @@ function Suppliers() {
           </Scrollbar>
           {data.payload.length > 0 && (
             <CustomTablePagination
-              locationPage={LOCATIONS.SUPPLIER_LIST}
-              pagination={queryData}
               total={data.total}
+              pagination={queryData}
+              locationPage={LOCATIONS.CUSTOMER_LIST}
             />
           )}
         </Card>
@@ -169,4 +171,4 @@ function Suppliers() {
   );
 }
 
-export default Suppliers;
+export default Customers;

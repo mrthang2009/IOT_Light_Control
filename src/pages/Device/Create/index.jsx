@@ -11,7 +11,7 @@ import { axiosUpFile } from 'src/utils/axios';
 import { LOCATIONS } from 'src/constants';
 import { showError, showSuccess, handleErrorResponse } from 'src/utils';
 
-import FormCategory from '../components/FormCategory';
+import FormCategory from '../Components/FormCategory';
 
 export default function CategoryCreate() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);

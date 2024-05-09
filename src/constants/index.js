@@ -13,37 +13,17 @@ export const LOCATIONS = {
   FORGOT_PASSWORD: '/forgot-password',
   RESET_PASSWORD: '/reset-password',
 
-  TOP_PAGE: '/top-page',
-  MY_RECORD: '/my-record',
-  COLUMN_PAGE: '/column-page',
-
   ROLE_LIST: '/roles',
   ROLE_CREATE: '/roles/create',
-  ROLE_EDIT: '/roles/edit/:id',
+  ROLE_UPDATE: '/roles/update/:id',
 
-  CUSTOMER_LIST: '/customers',
-  CUSTOMER_CREATE: '/customers/create',
-  CUSTOMER_EDIT: '/customers/edit-profile/:id',
+  USER_LIST: '/users',
+  USER_CREATE: '/users/create',
+  USER_EDIT: '/users/update/:id',
 
-  CATEGORY_LIST: '/categories',
-  CATEGORY_CREATE: '/categories/create',
-  CATEGORY_EDIT: '/categories/edit/:id',
-
-  SUPPLIER_LIST: '/suppliers',
-  SUPPLIER_CREATE: '/suppliers/create',
-  SUPPLIER_EDIT: '/suppliers/edit/:id',
-
-  EMPLOYEE_LIST: '/employees',
-  EMPLOYEE_CREATE: '/employees/create',
-  EMPLOYEE_EDIT_PROFILE: '/employees/edit-profile/:id',
-
-  PRODUCT_LIST: '/products',
-  PRODUCT_CREATE: '/products/create',
-  PRODUCT_EDIT: '/products/edit/:id',
-
-  ORDER_LIST: '/orders',
-  ORDER_CREATE: '/orders/create',
-  ORDER_EDIT: '/orders/edit/:id',
+  DEVIECE_LIST: '/devices',
+  DEVIECE_CREATE: '/devices/create',
+  DEVIECE_EDIT: '/devices/update/:id',
 };
 
 export const headerNavigation = [
@@ -116,45 +96,3 @@ export const MEAL_TYPE = {
 };
 
 export const DEFAULT_PAGINATION = { PAGE: 1, PAGE_SIZE: 5 };
-
-export const STATUS = {
-  VALUE: {
-    WAITING: 'WAITING',
-    DELIVERING: 'DELIVERING',
-    COMPLETED: 'COMPLETED',
-    REJECTED: 'REJECTED',
-  },
-  CONVERT: {
-    WAITING: 'Đang chờ',
-    DELIVERING: 'Đang giao hàng',
-    COMPLETED: 'Hoàn thành',
-    REJECTED: 'Đơn bị hủy',
-  },
-};
-
-export const PAYMENT_TYPE = {
-  VALUE: {
-    CASH: 'CASH',
-    CARD: 'CARD',
-  },
-  CONVERT: {
-    CASH: 'Tiền mặt',
-    CARD: 'Thẻ',
-  },
-};
-
-export const PAGINATION = {
-  LIMIT: 10,
-  SKIP: 0,
-};
-
-export const ISDELIVERING = {
-  VALUE: {
-    TRUE: 'true',
-    FALSE: 'false',
-  },
-  CONVERT: {
-    true: 'Trực tuyến',
-    false: 'Trực tiếp',
-  },
-};

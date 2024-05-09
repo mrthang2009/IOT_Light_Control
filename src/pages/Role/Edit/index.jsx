@@ -11,7 +11,7 @@ import { axiosClient } from 'src/utils/axios';
 import { LOCATIONS } from 'src/constants';
 import { showError, showSuccess, handleErrorResponse } from 'src/utils';
 
-import FormRole from '../components/FormRole';
+import FormRole from '../Components/FormRole';
 
 function RoleEdit() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);

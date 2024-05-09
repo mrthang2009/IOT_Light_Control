@@ -20,7 +20,7 @@ import TableHeader from 'src/components/Table/TableHeader';
 import TableToolbar from 'src/components/Table/TableToolbar';
 import CustomTablePagination from 'src/components/CustomTablePagination';
 
-import CategoryTableRow from './components/CategoryTableRow';
+import CategoryTableRow from './Components/CategoryTableRow';
 
 function Categories() {
   const location = useLocation();
