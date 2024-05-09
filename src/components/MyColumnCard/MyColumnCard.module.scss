@@ -1,0 +1,71 @@
+.Card {
+  width: 234px;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-bottom: 18px;
+}
+
+.ImageGroup {
+  position: relative;
+
+  &__Image {
+    width: 100%;
+    height: 144.47px;
+    object-fit: cover;
+  }
+
+  &__TimeStamp {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 144px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    background-color: var(--primary-color-300);
+
+    &__Text {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 30px;
+      color: var(--light-color);
+    }
+  }
+}
+
+.Info {
+  &__Title {
+    width: 232px;
+    height: 48px;
+    margin-top: 7.53px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  &__Tags {
+    display: flex;
+
+    &__Item {
+      margin-right: 12px;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 22px;
+      letter-spacing: 0.06px;
+      color: var(--primary-color-400);
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+

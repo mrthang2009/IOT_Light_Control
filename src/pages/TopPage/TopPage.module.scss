@@ -1,0 +1,54 @@
+.FilterGroup {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.Hexagon {
+  position: relative;
+  display: inline-block;
+  margin-right: 84px;
+  cursor: pointer;
+
+  &:hover {
+    scale: 1.1;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &__Content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__Title {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: var(--light-color);
+  }
+}
+
+.MealHistory {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: calc(28px - 8px);
+  margin-left: -4px;
+  margin-right: -4px;
+}
+
+.Button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

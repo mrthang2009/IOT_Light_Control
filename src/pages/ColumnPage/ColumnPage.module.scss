@@ -1,0 +1,64 @@
+.Recommend {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: calc(56px - 18px);
+  margin-left: -16px;
+  margin-right: -16px;
+
+  &__Item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 216px;
+    margin: 0 16px 18px;
+    padding: 24px 8px 22px;
+    background: var(--dark-color-600);
+  }
+}
+
+.Title {
+  width: 200px;
+  height: 54px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  text-align: center;
+  letter-spacing: 0.11px;
+  color: var(--primary-color-300);
+}
+
+.Line {
+  width: 56px;
+  height: 1px;
+  background-color: var(--light-color);
+  margin: 10px auto 8px;
+}
+
+.Description {
+  width: 200px;
+  height: 22px;
+  padding: 0;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 26px;
+  text-align: center;
+  color: var(--light-color);
+}
+
+.Column {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: calc(56px - 18px);
+  margin-left: -4px;
+  margin-right: -4px;
+}
+
+.Button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

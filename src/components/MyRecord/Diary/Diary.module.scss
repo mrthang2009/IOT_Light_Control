@@ -1,0 +1,59 @@
+.Diary {
+  &__Title {
+    width: 229px;
+    height: 32px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: 0.11px;
+    color: var(--dark-color-500);
+  }
+
+  &__List {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -6px;
+    margin-left: -6px;
+    margin-bottom: -6px;
+
+    &__Item {
+      width: 231px;
+      margin-right: 6px;
+      margin-left: 6px;
+      margin-bottom: 6px;
+      padding: 16px;
+      border: 2px solid var(--gray-color-300);
+      background-color: var(--light-color);
+    }
+  }
+
+  &__TimeBox {
+    width: 147px;
+    height: 48px;
+    margin-bottom: 8px;
+
+    &__Time {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 22px;
+      letter-spacing: 0.09px;
+      color: var(--dark-color-500);
+    }
+  }
+
+  &__Content {
+    p {
+      margin-bottom: 0;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 17px;
+      letter-spacing: 0.06px;
+      color: var(--dark-color-500);
+    }
+  }
+}

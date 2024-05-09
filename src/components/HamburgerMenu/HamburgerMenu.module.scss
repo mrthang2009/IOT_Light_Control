@@ -1,0 +1,41 @@
+
+.Dropdown {
+  :global {
+    .dropdown-toggle {
+      margin-left: 16px;
+      padding: 0;
+
+      background-color: transparent;
+      box-shadow: none;
+      border: 0;
+
+      &::after, &::before {
+        content: none;
+      }
+    }
+
+    .dropdown-menu {
+      width: 280px;
+      padding: 0;
+    }
+
+    .dropdown-item {
+      padding: 23px 0 23px 32px;
+      font-weight: 300;
+      font-size: 18px;
+      line-height: 26px;
+      color: var(--light-color);
+      background-color: var(--gray-color-400);
+      border-bottom: 1px solid rgba(0, 0, 0, .15);
+
+      &:hover {
+        color: var(--primary-color-400);
+      }
+    }
+
+  }
+}
+
+.Active {
+  color: var(--primary-color-400) !important;
+}

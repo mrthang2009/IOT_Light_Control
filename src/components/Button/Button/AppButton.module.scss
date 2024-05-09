@@ -1,0 +1,16 @@
+.Button {
+  width: 295px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 26px;
+  text-align: center;
+  color: var(--light-color);
+  background: var(--primary-color-300-400);
+  border: 0;
+  border-radius: 4px;
+}

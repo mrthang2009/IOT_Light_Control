@@ -1,0 +1,41 @@
+*{
+  outline: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'NotoSansJP';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: #212B36;
+  cursor: pointer;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+:root {
+  --light-color: #FFFFFF;
+  --dark-color-600: #2E2E2E;
+  --dark-color-500: #414141;
+  --gray-color-400: #777777;
+  --gray-color-300: #707070;
+  --primary-color-300: #FFCC21;
+  --primary-color-400: #FF963C;
+  --primary-color-500: #EA6C00;
+  --secondary-color-300: #8FE9D0;
+  --primary-color-300-400: linear-gradient(180deg, #FFCC21 0%, #FF963C 100%);
+}
+
+.container-lg {
+  max-width: calc(960px + (15px * 2));
+}

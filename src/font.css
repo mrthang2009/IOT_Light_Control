@@ -1,0 +1,9 @@
+@font-face {
+  font-family: Inter;
+  src: url("src/assets/fonts/Inter/Inter-Regular.ttf")
+}
+
+@font-face {
+  font-family: NotoSansJP;
+  src: url("src/assets/fonts/Noto_Sans_JP/NotoSansJP-Regular.ttf")
+}

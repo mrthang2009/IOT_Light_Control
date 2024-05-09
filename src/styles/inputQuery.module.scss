@@ -1,0 +1,9 @@
+.input {
+    width: 90%;
+  
+    input {
+      &::placeholder {
+        text-align: center;
+      }
+    }
+  }
