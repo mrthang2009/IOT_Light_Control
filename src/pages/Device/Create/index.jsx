@@ -9,34 +9,27 @@ import Typography from '@mui/material/Typography';
 import { axiosUpFile } from 'src/utils/axios';
 
 import { LOCATIONS } from 'src/constants';
-import { showError, showSuccess, handleErrorResponse } from 'src/utils';
+import { showSuccess, handleErrorResponse } from 'src/utils';
 
-import FormCategory from '../Components/FormCategory';
+import DeviceForm from '../Components/DeviceForm';
 
-export default function CategoryCreate() {
+export default function DeviceCreate() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const navigate = useNavigate();
 
   const createCategory = async (formData) => {
     try {
       setIsButtonDisabled(true);
-
-      if (formData.coverImageId === undefined || formData.coverImageId === '') {
-        showError('Vui lòng chọn ảnh bìa cho danh mục sản phẩm');
-        setIsButtonDisabled(false);
-        return;
-      }
-
-      const urlApi = `/categories/create`;
+      const urlApi = `/devices/create`;
       const resCreate = await axiosUpFile.post(urlApi, formData);
 
       if (resCreate.data.payload) {
-        showSuccess('Tạo danh mục mới thành công');
+        showSuccess('Tạo thiết bị mới thành công');
       }
       setIsButtonDisabled(false);
       navigate(LOCATIONS.CATEGORY_LIST);
     } catch (error) {
-      handleErrorResponse(error, 'Tạo danh mục mới thất bại');
+      handleErrorResponse(error, 'Tạo thiết bị mới thất bại');
       setIsButtonDisabled(false);
     }
   };
@@ -44,14 +37,14 @@ export default function CategoryCreate() {
   return (
     <>
       <Helmet>
-        <title>Tạo danh mục mới</title>
+        <title>Tạo thiết bị mới</title>
       </Helmet>
       <Container maxWidth="md">
         <Stack direction="row" alignItems="center" justifyContent="center" mb={5}>
-          <Typography variant="h4">Thông tin danh mục</Typography>
+          <Typography variant="h4">Thông tin thiết bị</Typography>
         </Stack>
-        <FormCategory
-          labelButton="Tạo danh mục mới"
+        <DeviceForm
+          labelButton="Tạo thiết bị mới"
           isButtonDisabled={isButtonDisabled}
           onSubmit={createCategory} // Truyền hàm onSubmit xuống component FormRole
         />

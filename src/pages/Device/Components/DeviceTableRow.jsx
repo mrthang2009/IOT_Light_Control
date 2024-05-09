@@ -2,11 +2,9 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import React, { useRef, useState } from 'react';
 
-import Stack from '@mui/material/Stack';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
-import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
@@ -19,39 +17,31 @@ import Iconify from 'src/components/iconify';
 import MenuPopover from 'src/components/MenuPopover';
 import ConfirmDialog from 'src/components/ConfirmDialog';
 
-export default function CategoryTableRow({
-  selected,
-  id,
-  name,
-  description,
-  handleClick,
-  getData,
-  coverImageUrl,
-}) {
+export default function DeviceTableRow({ selected, id, name, description, handleClick, getData }) {
   const anchorRef = useRef(null);
   const navigate = useNavigate();
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const handleEditCategory = () => {
-    navigate(LOCATIONS.CATEGORY_EDIT.replace(':id', id));
+  const handleUpdate = () => {
+    navigate(LOCATIONS.DEVICE_UPDATE.replace(':id', id));
   };
 
-  const handleDeleteCategory = async () => {
+  const handleDeleteSingle = async () => {
     try {
       setIsButtonDisabled(true);
-      const urlApi = `/categories/detail/${id}`;
+      const urlApi = `/devices/detail/${id}`;
       const resDeleteDetail = await axiosClient.patch(urlApi);
       if (resDeleteDetail.data.payload) {
-        showSuccess('Xóa danh mục thành công');
+        showSuccess('Xóa thiết bị thành công');
         await getData();
       }
       setIsButtonDisabled(false);
       setIsOpenDialog(false);
       setIsOpenMenu(false);
     } catch (error) {
-      handleErrorResponse(error, 'Xóa danh mục thất bại');
+      handleErrorResponse(error, 'Xóa thiết bị thất bại');
       setIsButtonDisabled(false);
     }
   };
@@ -62,21 +52,9 @@ export default function CategoryTableRow({
           <Checkbox disableRipple checked={selected} onChange={handleClick} />
         </TableCell>
         <TableCell>
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <CardMedia
-              component="img"
-              image={coverImageUrl}
-              alt={name}
-              sx={{
-                height: 60,
-                width: 106,
-                borderRadius: '8px',
-              }}
-            />
-            <Typography variant="subtitle2" noWrap>
-              {name}
-            </Typography>
-          </Stack>
+          <Typography variant="subtitle2" noWrap>
+            {name}
+          </Typography>
         </TableCell>
         <TableCell>{description}</TableCell>
         <TableCell align="right">
@@ -89,23 +67,22 @@ export default function CategoryTableRow({
         isOpenMenu={isOpenMenu}
         anchorEl={() => anchorRef.current}
         handleCloseMenu={() => setIsOpenMenu(false)}
-        handleEdit={handleEditCategory}
+        handleEdit={handleUpdate}
         isButtonDisabled={isButtonDisabled}
         handleDelete={() => setIsOpenDialog(true)}
       />
       <ConfirmDialog
         closeDialog={() => setIsOpenDialog(false)}
-        handleAgree={handleDeleteCategory}
+        handleAgree={handleDeleteSingle}
         isOpenDialog={isOpenDialog}
         isButtonDisabled={isButtonDisabled}
-        question={`Bạn xác nhận xóa danh mục ${name}?`}
+        question={`Bạn xác nhận xóa thiết bị ${name}?`}
       />
     </>
   );
 }
 
-CategoryTableRow.propTypes = {
-  coverImageUrl: PropTypes.string.isRequired,
+DeviceTableRow.propTypes = {
   description: PropTypes.string.isRequired,
   getData: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,

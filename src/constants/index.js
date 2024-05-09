@@ -19,11 +19,11 @@ export const LOCATIONS = {
 
   USER_LIST: '/users',
   USER_CREATE: '/users/create',
-  USER_EDIT: '/users/update/:id',
+  USER_UPDATE: '/users/update/:id',
 
-  DEVIECE_LIST: '/devices',
-  DEVIECE_CREATE: '/devices/create',
-  DEVIECE_EDIT: '/devices/update/:id',
+  DEVICE_LIST: '/devices',
+  DEVICE_CREATE: '/devices/create',
+  DEVICE_UPDATE: '/devices/update/:id',
 };
 
 export const headerNavigation = [

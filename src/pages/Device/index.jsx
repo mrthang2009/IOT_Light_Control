@@ -20,9 +20,9 @@ import TableHeader from 'src/components/Table/TableHeader';
 import TableToolbar from 'src/components/Table/TableToolbar';
 import CustomTablePagination from 'src/components/CustomTablePagination';
 
-import CategoryTableRow from './Components/CategoryTableRow';
+import DeviceTableRow from './Components/DeviceTableRow';
 
-function Categories() {
+function Devices() {
   const location = useLocation();
   const [data, setData] = useState({});
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -32,7 +32,7 @@ function Categories() {
   const getData = useCallback(async (newQueryData) => {
     try {
       const queryString = getParamsFormObject(newQueryData);
-      const urlAPI = `/categories/list${queryString}`;
+      const urlAPI = `/devices/list${queryString}`;
       const res = await axiosClient.get(urlAPI);
       setData(res.data);
       setSelected([]);
@@ -100,17 +100,17 @@ function Categories() {
   return (
     <Container>
       <PageHeader
-        nameButtonCreate="Thêm danh mục mới"
-        title="Danh mục"
-        locationPageCreate={LOCATIONS.CATEGORY_CREATE}
+        nameButtonCreate="Thêm thiết bị mới"
+        title="Thiết bị"
+        locationPageCreate={LOCATIONS.DEVICE_CREATE}
       />
       {data.payload ? (
         <Card>
           <TableToolbar
-            namePage="danh mục"
+            namePage="thiết bị"
             valueQuery={valueQuery}
             locationPage={LOCATIONS.CATEGORY_LIST}
-            placeholder={{ keyword: 'Tìm kiếm danh mục' }}
+            placeholder={{ keyword: 'Tìm kiếm thiết bị' }}
             numSelected={selected.length}
             isButtonDisabled={isButtonDisabled}
             handleSelectedDeletion={handleDeleteCategories}
@@ -124,18 +124,17 @@ function Categories() {
                   numSelected={selected.length}
                   onSelectAllClick={handleSelectAllClick}
                   headLabel={[
-                    { id: 'name', label: 'Tên danh mục' },
-                    { id: 'description', label: 'Mô tả danh mục' },
+                    { id: 'name', label: 'Tên thiết bị' },
+                    { id: 'description', label: 'Mô tả thiết bị' },
                     { id: '' },
                   ]}
                 />
                 <TableBody>
                   {data.payload && data.payload.length > 0 ? (
                     data.payload.map((row, index) => (
-                      <CategoryTableRow
+                      <DeviceTableRow
                         key={row._id}
                         id={row._id}
-                        coverImageUrl={row.media?.location}
                         name={row.name}
                         description={row.description}
                         selected={selected.indexOf(row._id) !== -1}
@@ -165,4 +164,4 @@ function Categories() {
   );
 }
 
-export default Categories;
+export default Devices;

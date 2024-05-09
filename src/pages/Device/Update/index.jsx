@@ -11,9 +11,9 @@ import { axiosClient } from 'src/utils/axios';
 import { LOCATIONS } from 'src/constants';
 import { showSuccess, handleErrorResponse } from 'src/utils';
 
-import FormCategory from '../components/FormCategory';
+import DeviceForm from '../Components/DeviceForm';
 
-function CategoryEdit() {
+function DeviceUpdate() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [details, setDetails] = useState([]);
   const [isFirstRender, setIsFirstRender] = useState(true);
@@ -64,7 +64,7 @@ function CategoryEdit() {
         <Stack direction="row" alignItems="center" justifyContent="center" mb={5}>
           <Typography variant="h4">Thông tin danh mục</Typography>
         </Stack>
-        <FormCategory
+        <DeviceForm
           labelButton="Cập nhật thông tin danh mục"
           isButtonDisabled={isButtonDisabled}
           onSubmit={editCategory}
@@ -80,4 +80,4 @@ function CategoryEdit() {
   );
 }
 
-export default CategoryEdit;
+export default DeviceUpdate;
