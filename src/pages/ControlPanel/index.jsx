@@ -20,20 +20,19 @@ import TableHeader from 'src/components/Table/TableHeader';
 import TableToolbar from 'src/components/Table/TableToolbar';
 import CustomTablePagination from 'src/components/CustomTablePagination';
 
-import RoleTableRow from './Components/RoleTableRow';
+import DeviceTableRow from './Components/DeviceTableRow';
 
-function Roles() {
+function ControlPanel() {
   const location = useLocation();
   const [data, setData] = useState({});
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [selected, setSelected] = useState([]);
-  const [dataPermissions, setDataPermissions] = useState([]);
   const [queryData, setQueryData] = useState({});
 
   const getData = useCallback(async (newQueryData) => {
     try {
       const queryString = getParamsFormObject(newQueryData);
-      const urlAPI = `/roles/list${queryString}`;
+      const urlAPI = `/devices/list${queryString}`;
       const res = await axiosClient.get(urlAPI);
       setData(res.data);
       setSelected([]);
@@ -56,19 +55,6 @@ function Roles() {
 
     getData(newQueryData);
   }, [location.search, getData]);
-
-  // Hàm lấy danh sách quyền từ API khi component được render
-  useEffect(() => {
-    const getPermissions = async () => {
-      try {
-        const resPermissions = await axiosClient.get(`/roles/permissions`);
-        setDataPermissions(resPermissions.data.payload);
-      } catch (error) {
-        console.log('Error:', error);
-      }
-    };
-    getPermissions();
-  }, []);
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -93,18 +79,18 @@ function Roles() {
     setSelected(newSelected);
   };
 
-  const handleDeleteRoles = async () => {
+  const handleDeleteMultiple = async () => {
     try {
       setIsButtonDisabled(true);
-      const urlApi = `/roles/delete/`;
+      const urlApi = `/devices/delete`;
       const res = await axiosClient.patch(urlApi, { ids: selected });
       if (res.data.payload && res.data.payload.length > 0) {
-        showSuccess('Xóa vai trò đã chọn thành công');
+        showSuccess('Xóa thiết bị đã chọn thành công');
         setSelected([]);
         await getData();
       }
     } catch (error) {
-      handleErrorResponse(error, 'Xóa vai trò đã chọn thất bại');
+      handleErrorResponse(error, 'Xóa thiết bị đã chọn thất bại');
     }
   };
 
@@ -114,20 +100,20 @@ function Roles() {
   return (
     <Container>
       <PageHeader
-        nameButtonCreate="Thêm vai trò mới"
-        title="Vai trò"
-        locationPageCreate={LOCATIONS.ROLE_CREATE}
+        nameButtonCreate="Thêm thiết bị mới"
+        title="Thiết bị"
+        locationPageCreate={LOCATIONS.DEVICE_CREATE}
       />
       {data.payload ? (
         <Card>
           <TableToolbar
-            namePage="vai trò"
+            namePage="thiết bị"
             valueQuery={valueQuery}
-            locationPage={LOCATIONS.ROLE_LIST}
-            placeholder={{ keyword: 'Tìm kiếm vai trò' }}
+            locationPage={LOCATIONS.DEVICE_LIST}
+            placeholder={{ keyword: 'Tìm kiếm thiết bị' }}
             numSelected={selected.length}
             isButtonDisabled={isButtonDisabled}
-            handleSelectedDeletion={handleDeleteRoles}
+            handleSelectedDeletion={handleDeleteMultiple}
           />
           <Scrollbar>
             <TableContainer>
@@ -138,25 +124,22 @@ function Roles() {
                   numSelected={selected.length}
                   onSelectAllClick={handleSelectAllClick}
                   headLabel={[
-                    { id: 'name', label: 'Tên vai trò' },
-                    { id: 'description', label: 'Mô tả' },
-                    { id: 'permission', label: 'Phân quyền' },
+                    { id: 'name', label: 'Tên thiết bị' },
+                    { id: 'description', label: 'Mô tả thiết bị' },
                     { id: '' },
                   ]}
                 />
                 <TableBody>
-                  {data.payload.length > 0 ? (
-                    data.payload.map((row) => (
-                      <RoleTableRow
+                  {data.payload && data.payload.length > 0 ? (
+                    data.payload.map((row, index) => (
+                      <DeviceTableRow
                         key={row._id}
                         id={row._id}
                         name={row.name}
                         description={row.description}
-                        permissions={row.permissions}
                         selected={selected.indexOf(row._id) !== -1}
                         handleClick={() => handleClick(row._id)}
-                        dataPermissions={dataPermissions}
-                        getData={getData}
+                        getData={() => getData(queryData)}
                       />
                     ))
                   ) : (
@@ -166,9 +149,9 @@ function Roles() {
               </Table>
             </TableContainer>
           </Scrollbar>
-          {data.payload.length > 0 && (
+          {data.payload && data.payload.length > 0 && (
             <CustomTablePagination
-              locationPage={LOCATIONS.ROLE_LIST}
+              locationPage={LOCATIONS.CATEGORY_LIST}
               pagination={queryData}
               total={data.total}
             />
@@ -181,4 +164,4 @@ function Roles() {
   );
 }
 
-export default Roles;
+export default ControlPanel;

@@ -79,18 +79,18 @@ function Devices() {
     setSelected(newSelected);
   };
 
-  const handleDeleteCategories = async () => {
+  const handleDeleteMultiple = async () => {
     try {
       setIsButtonDisabled(true);
-      const urlApi = `/categories/delete/`;
+      const urlApi = `/devices/delete`;
       const res = await axiosClient.patch(urlApi, { ids: selected });
       if (res.data.payload && res.data.payload.length > 0) {
-        showSuccess('Xóa danh mục đã chọn thành công');
+        showSuccess('Xóa thiết bị đã chọn thành công');
         setSelected([]);
         await getData();
       }
     } catch (error) {
-      handleErrorResponse(error, 'Xóa danh mục đã chọn thất bại');
+      handleErrorResponse(error, 'Xóa thiết bị đã chọn thất bại');
     }
   };
 
@@ -109,11 +109,11 @@ function Devices() {
           <TableToolbar
             namePage="thiết bị"
             valueQuery={valueQuery}
-            locationPage={LOCATIONS.CATEGORY_LIST}
+            locationPage={LOCATIONS.DEVICE_LIST}
             placeholder={{ keyword: 'Tìm kiếm thiết bị' }}
             numSelected={selected.length}
             isButtonDisabled={isButtonDisabled}
-            handleSelectedDeletion={handleDeleteCategories}
+            handleSelectedDeletion={handleDeleteMultiple}
           />
           <Scrollbar>
             <TableContainer>
@@ -139,7 +139,7 @@ function Devices() {
                         description={row.description}
                         selected={selected.indexOf(row._id) !== -1}
                         handleClick={() => handleClick(row._id)}
-                        getData={getData}
+                        getData={() => getData(queryData)}
                       />
                     ))
                   ) : (

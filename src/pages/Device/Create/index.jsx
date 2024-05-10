@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-import { axiosUpFile } from 'src/utils/axios';
+import { axiosClient } from 'src/utils/axios';
 
 import { LOCATIONS } from 'src/constants';
 import { showSuccess, handleErrorResponse } from 'src/utils';
@@ -17,17 +17,17 @@ export default function DeviceCreate() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const navigate = useNavigate();
 
-  const createCategory = async (formData) => {
+  const create = async (data) => {
     try {
       setIsButtonDisabled(true);
       const urlApi = `/devices/create`;
-      const resCreate = await axiosUpFile.post(urlApi, formData);
+      const resCreate = await axiosClient.post(urlApi, data);
 
       if (resCreate.data.payload) {
         showSuccess('Tạo thiết bị mới thành công');
       }
       setIsButtonDisabled(false);
-      navigate(LOCATIONS.CATEGORY_LIST);
+      navigate(LOCATIONS.DEVICE_LIST);
     } catch (error) {
       handleErrorResponse(error, 'Tạo thiết bị mới thất bại');
       setIsButtonDisabled(false);
@@ -46,7 +46,7 @@ export default function DeviceCreate() {
         <DeviceForm
           labelButton="Tạo thiết bị mới"
           isButtonDisabled={isButtonDisabled}
-          onSubmit={createCategory} // Truyền hàm onSubmit xuống component FormRole
+          onSubmit={create} // Truyền hàm onSubmit xuống component FormRole
         />
       </Container>
     </>

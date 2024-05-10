@@ -4,6 +4,8 @@ import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 import { LOCATIONS } from 'src/constants';
 import DashboardLayout from 'src/layouts/dashboard';
 
+import ControlPanel from '../pages/ControlPanel';
+
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const LoginPage = lazy(() => import('src/pages/login'));
 // export const ProductsPage = lazy(() => import('src/pages/products'));
@@ -38,6 +40,8 @@ export default function Router() {
       children: [
         { element: <IndexPage />, index: true },
         { path: LOCATIONS.HOME_PAGE, element: <Home /> },
+
+        { path: LOCATIONS.CONTROL_PANEL, element: <ControlPanel /> },
 
         { path: LOCATIONS.ROLE_LIST, element: <Role /> },
         { path: LOCATIONS.ROLE_CREATE, element: <RoleCreate /> },

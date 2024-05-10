@@ -15,6 +15,11 @@ const navConfig = [
     icon: icon('ic_analytics'),
   },
   {
+    title: 'Bảng điều khiển',
+    path: LOCATIONS.CONTROL_PANEL,
+    icon: icon('ic_analytics'),
+  },
+  {
     title: 'Thiết bị',
     path: LOCATIONS.DEVICE_LIST,
     icon: icon('ic_user'),

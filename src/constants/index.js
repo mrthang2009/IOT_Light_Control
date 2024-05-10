@@ -13,6 +13,8 @@ export const LOCATIONS = {
   FORGOT_PASSWORD: '/forgot-password',
   RESET_PASSWORD: '/reset-password',
 
+  CONTROL_PANEL: '/control-panel',
+
   ROLE_LIST: '/roles',
   ROLE_CREATE: '/roles/create',
   ROLE_UPDATE: '/roles/update/:id',

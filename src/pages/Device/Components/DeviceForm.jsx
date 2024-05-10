@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import React, { useState, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Card from '@mui/material/Card';
@@ -10,9 +10,7 @@ import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 const DeviceForm = ({ labelButton, isButtonDisabled, onSubmit, initialValues, isFirstRender }) => {
-  const [formData, setFormData] = useState({ name: '', description: '' });
-
-  const categorySchema = yup.object().shape({
+  const deviceSchema = yup.object().shape({
     description: yup.string().max(500, 'Mô tả thiết bị không được vượt quá 500 kí tự'),
     name: yup
       .string()
@@ -27,7 +25,7 @@ const DeviceForm = ({ labelButton, isButtonDisabled, onSubmit, initialValues, is
     formState: { errors },
   } = useForm({
     mode: 'onChange',
-    resolver: yupResolver(categorySchema),
+    resolver: yupResolver(deviceSchema),
   });
 
   useEffect(() => {
@@ -36,9 +34,8 @@ const DeviceForm = ({ labelButton, isButtonDisabled, onSubmit, initialValues, is
       setValue('description', initialValues.description || '');
     }
   }, [initialValues, isFirstRender, setValue]);
-  console.log('««««« formData »»»»»', formData);
   return (
-    <form onSubmit={handleSubmit((data) => onSubmit(formData))}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Card sx={{ padding: 3 }}>
         <Stack sx={{ marginBottom: 1 }} spacing={2}>
           <TextField
@@ -51,7 +48,11 @@ const DeviceForm = ({ labelButton, isButtonDisabled, onSubmit, initialValues, is
             error={!!errors.name}
             helperText={errors.name?.message}
             sx={{ width: '100%' }}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleSubmit(onSubmit)();
+              }
+            }}
           />
           <TextField
             name="description"
@@ -63,7 +64,11 @@ const DeviceForm = ({ labelButton, isButtonDisabled, onSubmit, initialValues, is
             error={!!errors.description}
             helperText={errors.description?.message}
             sx={{ width: '100%' }}
-            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleSubmit(onSubmit)();
+              }
+            }}
           />
         </Stack>
         <LoadingButton

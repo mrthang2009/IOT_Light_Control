@@ -18,39 +18,39 @@ function DeviceUpdate() {
   const [details, setDetails] = useState([]);
   const [isFirstRender, setIsFirstRender] = useState(true);
   const navigate = useNavigate();
-  const { id: roleId } = useParams();
+  const { id: deviceId } = useParams();
 
-  const getDetailCategory = useCallback(
+  const getDetail = useCallback(
     async (id) => {
       try {
-        const resDetail = await axiosClient.get(`/categories/detail/${roleId}`);
+        const resDetail = await axiosClient.get(`/devices/detail/${deviceId}`);
         setDetails(resDetail.data.payload);
       } catch (error) {
-        console.error('Lỗi khi lấy chi tiết danh mục:', error);
+        console.error('Lỗi khi lấy chi tiết thiết bị:', error);
       }
     },
-    [roleId]
+    [deviceId]
   );
 
   useEffect(() => {
-    if (roleId) {
-      getDetailCategory(roleId);
+    if (deviceId) {
+      getDetail(deviceId);
     }
-  }, [roleId, getDetailCategory]);
+  }, [deviceId, getDetail]);
 
-  const editCategory = async (formData) => {
+  const update = async (data) => {
     setIsFirstRender(false);
     try {
       setIsButtonDisabled(true);
-      const urlApi = `/categories/edit/${roleId}`;
-      const resEdit = await axiosClient.patch(`${urlApi}`, formData);
-      if (resEdit.data.payload) {
-        showSuccess('Cập nhật thông tin khách hàng thành công');
+      const urlApi = `/devices/update-information/${deviceId}`;
+      const resUpdate = await axiosClient.patch(`${urlApi}`, data);
+      if (resUpdate.data.payload) {
+        showSuccess('Cập nhật thông tin thiết bị thành công');
       }
       setIsButtonDisabled(false);
-      navigate(LOCATIONS.CATEGORY_LIST);
+      navigate(LOCATIONS.DEVICE_LIST);
     } catch (error) {
-      handleErrorResponse(error, 'Cập nhật thông tin khách hàng thất bại');
+      handleErrorResponse(error, 'Cập nhật thông tin thiết bị thất bại');
       setIsButtonDisabled(false);
     }
   };
@@ -62,17 +62,16 @@ function DeviceUpdate() {
       </Helmet>
       <Container maxWidth="md">
         <Stack direction="row" alignItems="center" justifyContent="center" mb={5}>
-          <Typography variant="h4">Thông tin danh mục</Typography>
+          <Typography variant="h4">Thông tin thiết bị</Typography>
         </Stack>
         <DeviceForm
-          labelButton="Cập nhật thông tin danh mục"
+          labelButton="Cập nhật thông tin thiết bị"
           isButtonDisabled={isButtonDisabled}
-          onSubmit={editCategory}
+          onSubmit={update}
           isFirstRender={isFirstRender}
           initialValues={{
             name: details.name,
             description: details.description,
-            coverImage: details.media?.location,
           }}
         />
       </Container>
