@@ -2,10 +2,7 @@ import { useLocation } from 'react-router-dom';
 import React, { useState, useEffect, useCallback } from 'react';
 
 import Card from '@mui/material/Card';
-import Table from '@mui/material/Table';
 import Container from '@mui/material/Container';
-import TableBody from '@mui/material/TableBody';
-import TableContainer from '@mui/material/TableContainer';
 
 import { axiosClient } from 'src/utils/axios';
 
@@ -16,11 +13,10 @@ import Loading from 'src/components/Loading';
 import PageHeader from 'src/components/PageHeader';
 import Scrollbar from 'src/components/scrollbar/scrollbar';
 import TableNoData from 'src/components/Table/TableNoData';
-import TableHeader from 'src/components/Table/TableHeader';
 import TableToolbar from 'src/components/Table/TableToolbar';
 import CustomTablePagination from 'src/components/CustomTablePagination';
 
-import DeviceTableRow from './Components/DeviceTableRow';
+import DeviceItem from './Components/DeviceItem';
 
 function ControlPanel() {
   const location = useLocation();
@@ -56,29 +52,6 @@ function ControlPanel() {
     getData(newQueryData);
   }, [location.search, getData]);
 
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const allSelecteds = data.payload.map((e) => e._id);
-      setSelected(allSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (_id) => {
-    const selectedIndex = selected.indexOf(_id);
-    let newSelected = [];
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, _id);
-    } else {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-    setSelected(newSelected);
-  };
-
   const handleDeleteMultiple = async () => {
     try {
       setIsButtonDisabled(true);
@@ -99,11 +72,7 @@ function ControlPanel() {
 
   return (
     <Container>
-      <PageHeader
-        nameButtonCreate="Thêm thiết bị mới"
-        title="Thiết bị"
-        locationPageCreate={LOCATIONS.DEVICE_CREATE}
-      />
+      <PageHeader title="Bảng điều khiển" locationPageCreate={LOCATIONS.DEVICE_CREATE} />
       {data.payload ? (
         <Card>
           <TableToolbar
@@ -116,38 +85,20 @@ function ControlPanel() {
             handleSelectedDeletion={handleDeleteMultiple}
           />
           <Scrollbar>
-            <TableContainer>
-              <Table sx={{ minWidth: 800 }}>
-                <TableHeader
-                  sx={{ minWidth: 2000 }}
-                  rowCount={data.total}
-                  numSelected={selected.length}
-                  onSelectAllClick={handleSelectAllClick}
-                  headLabel={[
-                    { id: 'name', label: 'Tên thiết bị' },
-                    { id: 'description', label: 'Mô tả thiết bị' },
-                    { id: '' },
-                  ]}
+            {data.payload && data.payload.length > 0 ? (
+              data.payload.map((item, index) => (
+                <DeviceItem
+                  key={item._id}
+                  id={item._id}
+                  name={item.name}
+                  description={item.description}
+                  status={item.status}
+                  getData={() => getData(queryData)}
                 />
-                <TableBody>
-                  {data.payload && data.payload.length > 0 ? (
-                    data.payload.map((row, index) => (
-                      <DeviceTableRow
-                        key={row._id}
-                        id={row._id}
-                        name={row.name}
-                        description={row.description}
-                        selected={selected.indexOf(row._id) !== -1}
-                        handleClick={() => handleClick(row._id)}
-                        getData={() => getData(queryData)}
-                      />
-                    ))
-                  ) : (
-                    <TableNoData queryValue={valueQuery} />
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
+              ))
+            ) : (
+              <TableNoData queryValue={valueQuery} />
+            )}
           </Scrollbar>
           {data.payload && data.payload.length > 0 && (
             <CustomTablePagination
